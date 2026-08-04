@@ -196,6 +196,10 @@ class GadgetFOFDataset(ParticleDataset):
             self.parameters = {
                 str(field): val for field, val in f["Header"].attrs.items()
             }
+            # gadget4 includes cosmology under `Parameters` group instead of `Header`
+            self.parameters.update(
+                {str(field): val for field, val in f["Parameters"].attrs.items()}
+            )
 
         self.dimensionality = 3
         self.refine_by = 2
