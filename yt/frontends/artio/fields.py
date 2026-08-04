@@ -3,7 +3,7 @@ import numpy as np
 from yt._typing import KnownFieldsT
 from yt.fields.field_info_container import FieldInfoContainer
 from yt.units.yt_array import YTArray
-from yt.utilities.physical_constants import amu_cgs, boltzmann_constant_cgs
+from yt.utilities.physical_constants import boltzmann_constant_cgs
 
 b_units = "code_magnetic"
 ra_units = "code_length / code_time**2"
@@ -76,6 +76,7 @@ class ARTIOFieldInfo(FieldInfoContainer):
             # We want this to match *exactly* what ARTIO would compute
             # internally.  We therefore use the exact values that are internal
             # to ARTIO, rather than yt's own internal constants.
+            amu_cgs = data.ds.quan(1.0, "amu").in_cgs()
             mH = 1.007825 * amu_cgs
             mHe = 4.002602 * amu_cgs
             Yp = 0.24
