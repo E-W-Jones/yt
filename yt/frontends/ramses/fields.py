@@ -16,7 +16,7 @@ from yt.utilities.logger import ytLogger as mylog
 from yt.utilities.physical_constants import (
     boltzmann_constant_cgs,
     mass_hydrogen_cgs,
-    mh,
+    mh,  # EWJ: What is the difference between mass_hydrogen_cgs and this
     mp,
 )
 

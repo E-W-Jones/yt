@@ -1,3 +1,13 @@
+# EWJ: Searching github:
+# * cm_per_kpc
+# * HUGE
+# * _primordial_mass_fraction
+# * boltzmann_constant_erg_per_K
+# * cm_per_mpc
+# * mass_hydrogen_grams
+# * newton_cgs
+# * rho_crit_g_cm3_h2
+
 import numpy as np
 
 #
@@ -88,8 +98,8 @@ speed_of_light_cm_per_s = 2.99792458e10
 standard_gravity_cm_per_s2 = 9.80665e2
 
 # some constants
-newton_cgs = 6.67384e-8
-planck_cgs = 6.62606957e-27
+newton_cgs = 6.67384e-8  # EWJ: Different to unyt
+planck_cgs = 6.62606957e-27  # EWJ: Same as unyt
 
 # temperature / energy
 boltzmann_constant_erg_per_K = 1.3806488e-16
