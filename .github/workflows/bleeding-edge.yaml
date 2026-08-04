@@ -33,12 +33,12 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
 
     - name: Set up Python (newest testable version)
-      uses: astral-sh/setup-uv@681c641aba71e4a1c380be3ab5e12ad51f415867 # v7.1.6
+      uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
       with:
         # this version should be upgraded as often as possible, typically once a year when
         # Cython, numpy and matplotlib are known to be compatible
@@ -78,7 +78,7 @@ jobs:
 
     steps:
     - name: Create issue on failure
-      uses: imjohnbo/issue-bot@572eed14422c4d6ca37e870f97e7da209422f5bd # v3.4.4
+      uses: imjohnbo/issue-bot@3188c6ce06249206709d3b1f274d0d4c5a521601 # v3.4.5
       with:
         title: 'TST: Upcoming dependency test failures'
         body: |
