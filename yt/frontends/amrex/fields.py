@@ -6,7 +6,7 @@ import numpy as np
 from yt._typing import KnownFieldsT
 from yt.fields.field_info_container import FieldInfoContainer
 from yt.units import YTQuantity
-from yt.utilities.physical_constants import amu_cgs, boltzmann_constant_cgs, c
+from yt.utilities.physical_constants import boltzmann_constant_cgs, c
 
 rho_units = "code_mass / code_length**3"
 mom_units = "code_mass / (code_time * code_length**2)"
@@ -39,6 +39,7 @@ def _temperature(data):
     mu = data.ds.parameters["mu"]
     gamma = data.ds.parameters["gamma"]
     tr = data["gas", "thermal_energy_density"] / data["gas", "density"]
+    amu_cgs = data.ds.quan(1.0, "amu").in_cgs()
     tr *= mu * amu_cgs / boltzmann_constant_cgs
     tr *= gamma - 1.0
     return tr
