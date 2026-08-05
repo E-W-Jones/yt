@@ -40,7 +40,11 @@ class IOHandlerGadgetFOFHDF5(BaseParticleIOHandler):
                 if pcount == 0:
                     continue
                 coords = f[ptype][f"{ptype}Pos"][()].astype("float64")
-                coords = np.resize(coords, (pcount, 3))
+                if coords.shape != (pcount, 3):
+                    coords = np.resize(
+                        coords, (pcount, 3)
+                    )  # EWJ this was raising an error and shouldn't be necessary if coords.shape == (pcount, 3) already...
+
                 yield ptype, coords
 
     def _read_offset_particle_field(self, field, data_file, fh):
@@ -108,7 +112,7 @@ class IOHandlerGadgetFOFHDF5(BaseParticleIOHandler):
         si, ei = data_file.start, data_file.end
         pcount = {
             "Group": data_file.header["Ngroups_ThisFile"],
-            "Subhalo": data_file.header["Nsubgroups_ThisFile"],
+            "Subhalo": data_file.header["Nsubhalos_ThisFile"],
         }
         if None not in (si, ei):
             for ptype in pcount:

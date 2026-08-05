@@ -290,7 +290,14 @@ class ParticleIndex(Index):
 
     def _initialize_refined_index(self):
         mask = self.regions.masks.sum(axis=1).astype("uint8")
-        max_npart = max(sum(d.total_particles.values()) for d in self.data_files) * 28
+        max_npart = (
+            max(sum(d.total_particles.values()) for d in self.data_files) * 28
+        )  # For some weird, unexplained reason this is creating a float. AFAIK this is incorrect but on python's end? Haven't tried it on different builds
+        if isinstance(max_npart, float):
+            mylog.warning(
+                "For some reason max_npart, which should be an int, is a float. Casting."
+            )
+            max_npart = int(max_npart)
         sub_mi1 = np.zeros(max_npart, "uint64")
         sub_mi2 = np.zeros(max_npart, "uint64")
         pb = get_pbar("Initializing refined index", len(self.data_files))
