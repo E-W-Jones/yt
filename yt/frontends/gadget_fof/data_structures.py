@@ -91,10 +91,30 @@ class GadgetFOFParticleIndex(ParticleIndex):
         template = self.ds.filename_template
         ndoms = self.ds.file_count
         cls = self.ds._file_class
-        self.data_files = [
-            cls(self.ds, self.io, template % {"num": i}, i, frange=None)
-            for i in range(ndoms)
-        ]
+        if ndoms > 1:
+            # use the general format
+            self.data_files = [
+                cls(self.ds, self.io, template % {"num": i}, i, frange=None)
+                for i in range(ndoms)
+            ]
+            return
+        try:
+            # use the general format
+            self.data_files = [
+                cls(self.ds, self.io, template % {"num": i}, i, frange=None)
+                for i in range(ndoms)
+            ]
+        except FileNotFoundError:
+            # We haven't found a file with the normal template,
+            # so try to just read a single file with file_id = 0
+            mylog.debug(
+                "Can't find the file reading %s instead of template %s.",
+                self.ds.parameter_filename,
+                template,
+            )
+            self.data_files = [
+                cls(self.ds, self.io, self.ds.parameter_filename, 0, frange=None)
+            ]
 
     def _setup_data_io(self):
         super()._setup_data_io()
