@@ -41,6 +41,7 @@ class IOHandlerGadgetFOFHDF5(BaseParticleIOHandler):
                     continue
                 coords = f[ptype][f"{ptype}Pos"][()].astype("float64")
                 if coords.shape != (pcount, 3):
+                    mylog.debug("No need to resize pcount as already correct shape.")
                     coords = np.resize(
                         coords, (pcount, 3)
                     )  # EWJ this was raising an error and shouldn't be necessary if coords.shape == (pcount, 3) already...
